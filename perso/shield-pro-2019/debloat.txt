@@ -1,0 +1,53 @@
+# Shield TV Pro 2019 de Sébastien (mdarcy, Android 11), branchée sur la LG G5.
+# Base : examples/nvidia-shield-tv-pro-2019/debloat.txt (testée sur SHIELD Experience 9.2.4),
+# plus cinq paquets de promo, de bêta et d'enregistrement repris de examples/nvidia-shield-tv-2019
+# (testés sur la Shield 2019 « tube », même logiciel). Préparée le 05/11/2026, pas encore appliquée.
+#
+# Appliquer : TV_HOST=<ip de la Shield> tools/disable.sh perso/shield-pro-2019/debloat.txt
+# Annuler   : TV_HOST=<ip de la Shield> tools/restore.sh perso/shield-pro-2019/debloat.txt
+# Tout est DÉSACTIVÉ, rien n'est désinstallé. Lancer launcher/build-and-install.sh AVANT cette liste.
+#
+# Gardés volontairement (ne jamais les ajouter ici) :
+# - Son et image : com.nvidia.nvaudiosvc, com.dolby.android.audio.service, com.nvidia.avsync,
+#   com.nvidia.NvCPLSvc (upscaling IA, affichage). La sortie forcée vers le DAC USB en dépend peut-être.
+# - Télécommande et Bluetooth : com.nvidia.blakepairing, com.nvidia.bluetooth.*, com.nvidia.remotelocator,
+#   com.nvidia.irtuner, com.nvidia.shieldtech.accessoryui, com.nvidia.ControllerMapper.
+# - Système : Play Services, Play Store (Projectivy et d'autres applis payantes en dépendent), keychain,
+#   com.android.se, com.android.tv.settings, com.android.providers.tv, setupwraith.
+# - com.google.android.tvrecommendations : désactivé, il casse l'appli téléphone SHIELD TV.
+# - Mises à jour (com.nvidia.ota) : NVIDIA publie encore des correctifs de sécurité.
+# - Assistant Google (katniss, speech.pumpkin) : Sébastien se sert de la voix (05/11/2026).
+# - Prime Video (copie système) : non tranché, gardé.
+# Choix de Sébastien du 05/11/2026 (questionnaire après l'audit pilotage/kb/mesures/shield-audit-2026-11-05.md) :
+# Chromecast, incrustation de jeu et partage réseau désactivés ; l'appli téléphone SHIELD TV sert
+# (tvrecommendations gardé) ; écran de veille Aerial Views à la place de Backdrop.
+
+# Télémétrie et retours NVIDIA / Google
+com.nvidia.stats                       # statistiques d'usage anonymes
+com.nvidia.feedback                    # rapports de plantage et formulaire « envoyer un avis »
+com.nvidia.diagtools                   # collecte de journaux ; à réactiver si le support NVIDIA en demande
+com.google.android.feedback
+
+# Promos, bêta et installations automatiques
+android.autoinstalls.config.nvidia     # installations automatiques d'applis partenaires par le Play Store
+com.nvidia.shield.welcome              # promo du premier démarrage
+com.nvidia.factorybundling             # offres d'accessoires
+com.nvidia.shield.beta                 # programme bêta
+com.nvidia.shieldbeta                  # programme bêta
+com.nvidia.shield.registration         # enregistrement du produit
+
+# Restes du jeu NVIDIA (GameStream fermé en 2023)
+com.nvidia.nvgamecast                  # récepteur GameStream ; Moonlight n'en a pas besoin
+com.nvidia.tegrazone3                  # appli et rangée « NVIDIA Games » ; GeForce NOW est à part
+com.nvidia.osc                         # incrustation de jeu NVIDIA (Sébastien ne joue pas)
+
+# Choix de Sébastien
+com.google.android.apps.mediashell     # Chromecast intégré ; Spotify passe par Spotify Connect
+com.nvidia.shield.nas                  # partage de fichiers réseau (les trois vont ensemble)
+com.nvidia.shield.smbserver
+com.nvidia.shield.smbauth
+com.google.android.backdrop            # écran de veille Ambiance ; à appliquer APRÈS avoir choisi Aerial Views
+
+# Vieilles applis préinstallées
+com.android.gallery3d                  # ancienne visionneuse de photos
+com.android.printspooler               # impression
