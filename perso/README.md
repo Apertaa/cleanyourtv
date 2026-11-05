@@ -13,9 +13,19 @@ de Sébastien. Le reste du dépôt suit le projet d'origine (`upstream` = `Gathi
 - Historique : lanceur CleanYourTV le 05/11 de 15 h à 20 h, Projectivy du 05/11 au soir au 06/11 (section
   suivante), puis retour au lanceur CleanYourTV le 06/11 vers 0 h 30 et **Projectivy désinstallé** : Sébastien le
   trouve trop complet pour ce qu'il apporte, et veut une interface sur mesure, codée dans ce fork.
-  Réinstallation : `STOCK_LAUNCHER=none SKIP_BUILD=1` + les variables du serveur adb 5038 (bas de page)
-  `bash launcher/build-and-install.sh` (le script refuse sans `STOCK_LAUNCHER` quand l'Accueil est un lanceur
-  qu'il ne connaît pas).
+  Réinstallation : `STOCK_LAUNCHER=none HOME_KEY_SERVICE=1` + les variables du serveur adb 5038 (bas de page)
+  `bash launcher/build-and-install.sh` (`SKIP_BUILD=1` pour reprendre l'APK déjà compilé ; le script refuse sans
+  `STOCK_LAUNCHER` quand l'Accueil est un lanceur qu'il ne connaît pas). **Toujours `HOME_KEY_SERVICE=1`** :
+  Android coupe le service des touches à chaque réinstallation, et le bouton NETFLIX redeviendrait « Netflix ».
+- Depuis le 06/11 vers 0 h 50, le lanceur est compilé avec, dans `config.xml` : le ciel qui suit l'heure
+  (`sky_intensity` 60) et la position du centre de Rennes (choisie plutôt que la commune exacte, le fork étant
+  public ; le soleil y diffère de moins d'une minute), et le bouton **NETFLIX → Nuvio** (`app_keys`
+  `KEYCODE_BUTTON_12:com.nuvio.tv`). Le service des touches (`HomeKeyService`) est activé et lié ; essai au vrai
+  bouton par Sébastien : Nuvio s'ouvre. Ces réglages sont dans `config.xml` et pas dans le thème, pour qu'une
+  réinstallation garde les choix faits sur la TV (un envoi de thème les efface).
+- Boutons de la télécommande (relevés le 06/11, `getevent`, fichier `Vendor_0955_Product_7217.kl`) : Menu `MENU`,
+  croix `DPAD_*`, OK `DPAD_CENTER`, Retour `BACK`, Accueil `HOME`, lecture `MEDIA_FAST_FORWARD`/`PLAY_PAUSE`/
+  `REWIND`, volume `VOLUME_DOWN`/`UP`, NETFLIX `BUTTON_12` (scan 393), micro `ASSIST` (scan 217), marche `POWER`.
 - L'accueil d'origine reste désactivé. Seul lanceur : celui de CleanYourTV ; sans lui, Android affiche
   `FallbackHome` (écran vide) et adb reste joignable.
 - Liste `shield-pro-2019/debloat.txt` appliquée (20 paquets) ; annulation : `tools/restore.sh` sur la même liste.
