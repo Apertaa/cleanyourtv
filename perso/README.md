@@ -45,7 +45,7 @@ de Sébastien. Le reste du dépôt suit le projet d'origine (`upstream` = `Gathi
 2. Remesurer la mémoire après quelques jours (`dumpsys meminfo`) : juste après un redémarrage, les services
    Google Play gonflent et la comparaison avec l'audit ne vaut rien.
 3. Après une mise à jour SHIELD : `tools/check.py perso/shield-pro-2019/debloat.txt`, puis réappliquer.
-4. Rien n'est commité dans le fork (`perso/`, `config.xml`).
+4. Le fork vit sur la branche `shield` (`main` reste une copie du projet d'origine) ; dépôt public : aucune IP ni identifiant dans `perso/`.
 
 Les scripts passent par le serveur adb de Claude : `TV_ADB_BINARY=/opt/homebrew/bin/adb
 ANDROID_ADB_SERVER_PORT=5038 TV_HOST=<ip de la Shield>:5555`, après `adb -P 5038 server nodaemon` (règle du démon
