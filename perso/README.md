@@ -3,21 +3,30 @@
 Ce dossier n'existe que dans le fork `Apertaa/cleanyourtv` : ce qui est propre à la Shield TV Pro 2019
 de Sébastien. Le reste du dépôt suit le projet d'origine (`upstream` = `Gathin23/cleanyourtv`).
 
-## Où on en est (05/11/2026, appliqué)
+## Où on en est (06/11/2026, appliqué)
 
-- Choix : le lanceur CleanYourTV (style Apple TV, code ouvert, à personnaliser plus tard) et son allègement,
-  plutôt que Projectivy et ATV Optimizer. Audit préalable : `../../pilotage/kb/mesures/shield-audit-2026-11-05.md`.
-- Lanceur v3.3 installé et Accueil (`com.gathin.tvhome`), accueil d'origine désactivé ; dock : YouTube+,
-  Nuvio GitHub (`com.nuvio.tv`, choix de Sébastien), Canal+, Spotify (`launcher/.../values/config.xml`).
+- **Accueil : le lanceur CleanYourTV v3.3** (`com.gathin.tvhome`), dock YouTube+, Nuvio GitHub `com.nuvio.tv`,
+  Canal+, Spotify (`launcher/.../values/config.xml`). Depuis le 06/11 il porte le thème **glass**
+  (essayé après dock-glass) : copie dans `themes/glass-shield/`, seul le dock change (ses 4 applis). Poussé par
+  `tools/theme.sh perso/themes/glass-shield` ; retour au réglage d'origine : `tools/theme.sh --reset`. Chantier de l'accueil : `STATUS.md`. Ce dépôt sert aussi pour l'**allègement**, plutôt
+  qu'ATV Optimizer. Audit préalable : `../../pilotage/kb/mesures/shield-audit-2026-11-05.md`.
+- Historique : lanceur CleanYourTV le 05/11 de 15 h à 20 h, Projectivy du 05/11 au soir au 06/11 (section
+  suivante), puis retour au lanceur CleanYourTV le 06/11 vers 0 h 30 et **Projectivy désinstallé** : Sébastien le
+  trouve trop complet pour ce qu'il apporte, et veut une interface sur mesure, codée dans ce fork.
+  Réinstallation : `STOCK_LAUNCHER=none SKIP_BUILD=1` + les variables du serveur adb 5038 (bas de page)
+  `bash launcher/build-and-install.sh` (le script refuse sans `STOCK_LAUNCHER` quand l'Accueil est un lanceur
+  qu'il ne connaît pas).
+- L'accueil d'origine reste désactivé. Seul lanceur : celui de CleanYourTV ; sans lui, Android affiche
+  `FallbackHome` (écran vide) et adb reste joignable.
 - Liste `shield-pro-2019/debloat.txt` appliquée (20 paquets) ; annulation : `tools/restore.sh` sur la même liste.
 - Désinstallées : Molotov, Netflix, YouTube officiel, YouTube Music, Kodi, Plex Media Server, Downloader,
   Google Play Films, Google Play Jeux. Supprimés : la vidéo AirScreen (1,44 Go), un vieil APK de SmartTube.
-- Réglages : animations à 0,5×, DNS privé `dns.adguard-dns.com`, écran de veille Aerial Views (Play Store),
+- Réglages : animations remises à 1× le 05/11 au soir (à 0,5×, elles accéléraient aussi Nuvio et les autres applis), DNS privé `dns.adguard-dns.com`, écran de veille Aerial Views (Play Store),
   caches vidés. Débogage réseau laissé ouvert (pilotage s'en sert).
 - Vérifié après redémarrage : Accueil, 22 paquets désactivés, sortie son forcée vers le DAC, services audio et
   affichage NVIDIA actifs, DNS (AIOStreams, TorBox, Stremio, TMDB, Trakt résolus ; pubs bloquées).
 
-## Essai de Projectivy (05/11/2026)
+## Projectivy (Accueil du 05/11 au soir au 06/11/2026, désinstallé)
 
 - Lanceur CleanYourTV jugé « vraiment pas mal » ; Sébastien veut comparer avec Projectivy.
 - Installé depuis GitHub (choix de Sébastien) : `spocky/miproja1`, v4.73 `xda-release` (Play Store : 4.72),
@@ -33,9 +42,20 @@ de Sébastien. Le reste du dépôt suit le projet d'origine (`upstream` = `Gathi
   Shield en 9.2 perdent ce réglage). Droits accordés par adb avec l'accord de Sébastien (05/11) : accès aux
   notifications (`cmd notification allow_listener com.spocky.projengmenu/com.spocky.projengmenu.services.notification.NotificationListener`,
   à côté de celui de tvrecommendations) et installation de ses mises à jour (`appops set … REQUEST_INSTALL_PACKAGES allow`) ;
-  chaînes TV et stockage étaient déjà accordés. **Projectivy est l'Accueil depuis le 05/11/2026 au soir** (essai) ; retour :
-  `cmd package set-home-activity com.gathin.tvhome/.MainActivity`.
+  chaînes TV et stockage étaient déjà accordés. **Projectivy est l'Accueil depuis le 05/11/2026 au soir.**
 
+- Réglages appliqués par Claude le 05/11/2026 au soir, menu par menu : remplacement du launcher désactivé,
+  remappage des boutons et rappel d'accessibilité désactivés, horloge effacée en mode inactif, date en
+  ligne 2 (`EEEE d MMMM`), largeur minimale des fonds à 1900 px (curseur par pas de 100 : 1900 laisse passer
+  1920), vidéos de prévisualisation « Jamais ». Laissés tels que Sébastien les a choisis : fonds Wikimedia
+  Commons, transition Zoom, détection d'inactivité (1 min → économiseur, sauf pendant une lecture). Les deux
+  raccourcis du menu Télécommande (double « Menu », double « Retour ») sont restés coupés : ils passent par le
+  remappage des boutons.
+- Mesuré le 06/11 vers 0 h 15 (Shield allumée depuis 8 h) : à l'accueil, 105 à 110 Mo (PSS), 85 Mo en arrière-plan
+  (le lanceur CleanYourTV : 146 Mo juste après un redémarrage, conditions pas identiques). Au repos à
+  l'accueil, Projectivy redessine en continu (313 images en 10 s) et prend environ 16 % d'un cœur : cause
+  probable, l'animation de la carte sélectionnée, « Pulsation » par défaut (`appearance_cards_focused_animation`),
+  pas encore vérifiée.
 - Revue de tous les réglages de Projectivy, avec conseils : `projectivy-reglages.md`. Elle est tirée de l'APK
   décompilé avec l'accord de Sébastien, et les écrans ne sont pas encore parcourus.
 

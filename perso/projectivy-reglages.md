@@ -1,6 +1,7 @@
 # Projectivy 4.73 : tous les réglages, et ce que je conseille
 
 Pour la Shield TV Pro 2019 de Sébastien, branchée sur la LG OLED G5 de 77", le 05/11/2026.
+Projectivy a été désinstallé le 06/11/2026 : cette revue ne sert plus que si on le réessaie.
 
 **D'où vient cette liste.** J'ai décompilé l'APK 4.73 installé, avec l'accord de Sébastien. Le code
 décompilé est dans `~/multimedia/projectivy` (dépôt privé). Les noms
