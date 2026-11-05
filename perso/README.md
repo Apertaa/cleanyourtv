@@ -8,7 +8,7 @@ de Sébastien. Le reste du dépôt suit le projet d'origine (`upstream` = `Gathi
 - **Accueil : le lanceur CleanYourTV v3.3** (`com.gathin.tvhome`), dock YouTube+, Nuvio GitHub `com.nuvio.tv`,
   Canal+, Spotify (`launcher/.../values/config.xml`). Depuis le 06/11 il porte le thème **glass**
   (essayé après dock-glass) : copie dans `themes/glass-shield/`, seul le dock change (ses 4 applis). Poussé par
-  `tools/theme.sh perso/themes/glass-shield` ; retour au réglage d'origine : `tools/theme.sh --reset`. Chantier de l'accueil : `STATUS.md`. Ce dépôt sert aussi pour l'**allègement**, plutôt
+  `tools/theme.sh perso/themes/glass-shield` ; retour au réglage d'origine : `tools/theme.sh --reset`. Chantier de l'accueil : `STATUS.md` ; tous les réglages du lanceur : `lanceur-reglages.md`. Ce dépôt sert aussi pour l'**allègement**, plutôt
   qu'ATV Optimizer. Audit préalable : `../../pilotage/kb/mesures/shield-audit-2026-11-05.md`.
 - Historique : lanceur CleanYourTV le 05/11 de 15 h à 20 h, Projectivy du 05/11 au soir au 06/11 (section
   suivante), puis retour au lanceur CleanYourTV le 06/11 vers 0 h 30 et **Projectivy désinstallé** : Sébastien le
