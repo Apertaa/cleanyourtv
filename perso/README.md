@@ -25,6 +25,34 @@ de Sébastien. Le reste du dépôt suit le projet d'origine (`upstream` = `Gathi
   `KEYCODE_BUTTON_12:com.nuvio.tv` ; appui long → YouTube+, `hold:KEYCODE_BUTTON_12:org.smarttube.stable`). Le service des touches (`HomeKeyService`) est activé et lié ; essai au vrai
   bouton par Sébastien : Nuvio s'ouvre. Ces réglages sont dans `config.xml` et pas dans le thème, pour qu'une
   réinstallation garde les choix faits sur la TV (un envoi de thème les efface).
+- **Écart de code avec l'amont** (06/11 vers 1 h 50) : réglage `settings_button_panel` (`Config.java`,
+  `MainActivity.java`, `config.xml`, une ligne dans `themes/README.md`). La molette en haut à droite ouvre le panneau
+  rapide (Paramètres, Affichage, Réseau, Applis, réglages du lanceur) au lieu des Paramètres ; activé par le thème.
+  Les tests Python du dépôt ont des échecs attendus dans ce fork : `settings_button_panel` et les trois clés
+  `dimmer_*` n'ont pas de capture dans `docs/switches.md` (`test_switches`), et `latitude`/`longitude` ne sont plus
+  vides (`test_sky_place_note`) ; 5 échecs au 06/11. À reporter à chaque mise à jour depuis l'amont.
+  Dans le même panneau, la ligne « Display » est retirée quand la TV n'a pas d'écran d'affichage à ouvrir
+  (`SystemSettings.hasDisplayScreen`). Sur la Shield, « Affichage et audio » n'est qu'une page interne des
+  Paramètres, sans entrée directe, et l'écran `DisplaySoundActivity` qu'elle annonce pour `SOUND_SETTINGS` plante
+  (classe absente de son appli Paramètres). Les autres lignes sont traduites (`values-fr` : Réseau, Gestion des apps,
+  Réactiver). Ces deux retouches pourraient être proposées à l'amont.
+- **Voile d'assombrissement** (06/11 vers 2 h 30, code du fork) : il remplace l'écran de veille Aerial Views, sur le
+  modèle de celui de SmartTube. `Dimmer.java`, porté par `HomeKeyService` (il lui faut donc le service des
+  touches) : après un délai sans appui (1 min au départ, de 5 s à 30 min par pas de 5 s), un voile noir à 95 %
+  (de 50 à 100 %) couvre l'écran par-dessus l'appli, qui reste ouverte derrière. Pas de voile pendant une vidéo : un
+  lecteur qui joue et déclare son son « film » (`CONTENT_TYPE_MOVIE` ; Nuvio, YouTube+ et Canal+, mesuré le 06/11).
+  Spotify déclare un son « non précisé » : la musique est voilée. Le premier appui enlève le voile et agit aussitôt
+  (Play relance). Trois lignes dans Paramètres du lanceur (Gauche/Droite pour régler), gardées par un envoi de
+  thème ; valeurs de départ `dimmer_*` dans `config.xml`. Aucune autorisation de plus, rien qui tourne en boucle :
+  il suit les rappels d'Android sur la lecture et sur l'écran. Limite : une appli vidéo qui ne déclare pas « film »
+  serait voilée en pleine lecture. Fichiers touchés en plus : `HomeKeyService.java`, `LauncherSettingsActivity.java`
+  et sa mise en page, les chaînes `values`, `values-fr` et `values-iw` (un test exige l'hébreu),
+  `docs/launcher.md`, `themes/README.md`. L'APK passe à 592 809 octets, au-dessus de la limite de l'amont
+  (589 824) : sans effet ici, à revoir avant toute proposition à l'amont.
+- Add-on installé le 06/11 (carte sur l'accueil) : **Minuteur de veille** (`addons/sleep-timer`, service
+  d'accessibilité pour la seule mise en veille, à côté de `HomeKeyService`). Météo, Statistiques, Accès à distance et
+  Inspecteur TV, essayés le même soir, ont été désinstallés à la demande de Sébastien. Réinstallation :
+  `addons/sleep-timer/build-and-install.sh` (variables du serveur adb 5038).
 - Boutons de la télécommande (relevés le 06/11, `getevent`, fichier `Vendor_0955_Product_7217.kl`) : Menu `MENU`,
   croix `DPAD_*`, OK `DPAD_CENTER`, Retour `BACK`, Accueil `HOME`, lecture `MEDIA_FAST_FORWARD`/`PLAY_PAUSE`/
   `REWIND`, volume `VOLUME_DOWN`/`UP`, NETFLIX `BUTTON_12` (scan 393), micro `ASSIST` (scan 217), marche `POWER`.
@@ -33,8 +61,10 @@ de Sébastien. Le reste du dépôt suit le projet d'origine (`upstream` = `Gathi
 - Liste `shield-pro-2019/debloat.txt` appliquée (20 paquets) ; annulation : `tools/restore.sh` sur la même liste.
 - Désinstallées : Molotov, Netflix, YouTube officiel, YouTube Music, Kodi, Plex Media Server, Downloader,
   Google Play Films, Google Play Jeux. Supprimés : la vidéo AirScreen (1,44 Go), un vieil APK de SmartTube.
-- Réglages : animations remises à 1× le 05/11 au soir (à 0,5×, elles accéléraient aussi Nuvio et les autres applis), DNS privé `dns.adguard-dns.com`, écran de veille Aerial Views (Play Store),
-  caches vidés. Débogage réseau laissé ouvert (pilotage s'en sert).
+- Réglages : animations remises à 1× le 05/11 au soir (à 0,5×, elles accéléraient aussi Nuvio et les autres applis), DNS privé `dns.adguard-dns.com`, caches vidés. Écran de veille Aerial Views (Play Store)
+  **coupé le 06/11** au profit du voile : `screensaver_enabled` 0 (avant 1), `screen_off_timeout` 1 200 000 ms
+  (avant 300 000), pour que la Shield s'endorme toujours après 20 min sans appui (`sleep_timeout`). Retour :
+  `settings put secure screensaver_enabled 1` puis `settings put system screen_off_timeout 300000`. Débogage réseau laissé ouvert (pilotage s'en sert).
 - Vérifié après redémarrage : Accueil, 22 paquets désactivés, sortie son forcée vers le DAC, services audio et
   affichage NVIDIA actifs, DNS (AIOStreams, TorBox, Stremio, TMDB, Trakt résolus ; pubs bloquées).
 

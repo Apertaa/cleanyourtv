@@ -63,6 +63,10 @@
     <string name="follow_theme">Suivre le thème (réinitialiser les choix)</string>
     <string name="follow_theme_hint">Utilise la disposition et les animations du thème actuel ou les valeurs intégrées. Appliquer ou réinitialiser un thème efface aussi ces choix.</string>
     <string name="tv_settings">Paramètres du téléviseur</string>
+    <string name="quick_picture">Affichage et audio</string>
+    <string name="quick_network">Réseau</string>
+    <string name="quick_apps">Gestion des apps</string>
+    <string name="quick_apps_hint">Réactiver</string>
     <string name="on">Activé</string>
     <string name="off">Désactivé</string>
     <string name="enable">Activer</string>
@@ -98,4 +102,8 @@
     <string name="clock_format_system">Système</string>
     <string name="clock_format_12">12 heures</string>
     <string name="clock_format_24">24 heures</string>
+    <string name="dimmer_state">Voile d\'assombrissement : %1$s</string>
+    <string name="dimmer_delay_state">Délai avant le voile : %1$s</string>
+    <string name="dimmer_opacity_state">Opacité du voile : %1$s</string>
+    <string name="dimmer_hint">Un voile noir couvre l\'écran après ce délai sans appui, sauf pendant une vidéo ; la musique est voilée aussi. Le premier appui l\'enlève et agit aussitôt. Gauche et Droite règlent le délai et l\'opacité.</string>
 </resources>

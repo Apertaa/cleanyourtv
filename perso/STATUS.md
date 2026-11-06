@@ -21,10 +21,22 @@ But : un accueil sur mesure, proche de l'Apple TV, sans le superflu de Projectiv
   0 rangée sous le dock, halo, ciel, stats, roue = réglages du lanceur, bibliothèque, ressort), et appui long
   NETFLIX → YouTube+ (`config.xml`). Sébastien a testé : tout fonctionne. Capture de l'accueil à refaire (il était
   dans YouTube+).
+- **Étape 2 faite** vers 1 h 35 : add-ons Météo, Minuteur de veille, Inspecteur TV, Statistiques et Accès à distance
+  installés, cartes acceptées et ville de Météo réglée par Sébastien sur la TV (jamais dans le fork). Statut AirPlay
+  écarté : la Shield n'a pas de récepteur AirPlay. Accès à distance installé **sans** `WRITE_SECURE_SETTINGS`, pour
+  que son bouton ne puisse pas couper le débogage réseau dont pilotage se sert.
+- Vers 1 h 40, après les avoir regardés, Sébastien garde **seulement le Minuteur de veille** : Statistiques, Météo,
+  Accès à distance et Inspecteur TV désinstallés.
+- Vers 1 h 50 : la molette en haut à droite ouvre le panneau rapide (nouveau réglage `settings_button_panel`, premier
+  changement de code du fork). Installé ; Sébastien l'a ouvert aussitôt.
+  Vers 2 h : lignes du panneau en français ; la ligne Affichage est retirée, la Shield n'ayant aucune entrée directe
+  vers « Affichage et audio » (choix de Sébastien).
+
+- **Étape 3 faite** vers 2 h 30 : le voile d'assombrissement (code du fork, `README.md`), installé avec l'accord de
+  Sébastien ; Aerial Views coupé, mise en veille de la Shield gardée à 20 min. Essayé par Sébastien : tout marche
+  (accueil et Spotify voilés, Nuvio en pause voilé sans repartir, pas de voile pendant une vidéo).
 
 ## Ce qui reste
 
-1. Étape 2 : lire puis installer les add-ons Météo (ville sur la Shield seulement), Minuteur de veille, Inspecteur TV,
-   Statistiques, Accès à distance (son bouton couperait le débogage réseau dont pilotage se sert), Statut AirPlay.
-2. Étape 3 : coder le voile d'assombrissement (`accueil-cible.md`), puis désactiver Aerial Views.
-3. Juger le ciel de jour et au coucher du soleil.
+1. Juger le ciel de jour et au coucher du soleil.
+2. Régler délai et opacité du voile à l'usage, sur la TV (Paramètres du lanceur).

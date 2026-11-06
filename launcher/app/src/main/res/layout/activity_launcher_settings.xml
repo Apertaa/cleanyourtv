@@ -131,6 +131,29 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/dimmerChoice"
+            style="@style/SettingsRow"
+            android:layout_marginTop="28dp" />
+
+        <TextView
+            android:id="@+id/dimmerDelayChoice"
+            style="@style/SettingsRow"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/dimmerOpacityChoice"
+            style="@style/SettingsRow"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/dimmer_hint"
+            android:textColor="#FFACB8C1"
+            android:textSize="14sp" />
+
+        <TextView
             android:id="@+id/openOnStartChoice"
             style="@style/SettingsRow"
             android:layout_marginTop="28dp"

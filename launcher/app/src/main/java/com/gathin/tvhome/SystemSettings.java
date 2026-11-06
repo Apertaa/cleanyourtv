@@ -68,6 +68,20 @@ final class SystemSettings {
      * The TV's display or picture settings. On Xiaomi sets, the AOSP DISPLAY_SETTINGS action resolves to
      * an empty stub in DroidTvSettings; prefer Xiaomi's own PictureActivity where installed.
      */
+    /**
+     * Whether the TV has a display screen of its own to open: Xiaomi's picture page, or a DISPLAY_SETTINGS handler.
+     * SHIELD Experience 9 (Android 11) has neither (its "Display & Sound" is a page inside the main settings, and the
+     * DisplaySoundActivity it declares for SOUND_SETTINGS crashes), so displayIntent falls back to the main settings
+     * and the quick panel leaves the row out rather than show the Settings row twice.
+     */
+    static boolean hasDisplayScreen(Context context) {
+        PackageManager pm = context.getPackageManager();
+        ComponentName xiaomi = new ComponentName("com.android.tv.settings",
+                "com.xiaomi.mitv.settings.picture.PictureActivity");
+        return pm.resolveActivity(new Intent().setComponent(xiaomi), 0) != null
+                || pm.resolveActivity(new Intent(Settings.ACTION_DISPLAY_SETTINGS), PackageManager.MATCH_DEFAULT_ONLY) != null;
+    }
+
     static Intent displayIntent(Context context) {
         ComponentName xiaomi = new ComponentName("com.android.tv.settings",
                 "com.xiaomi.mitv.settings.picture.PictureActivity");

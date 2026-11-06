@@ -821,13 +821,15 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             open(systemIntent(Settings.ACTION_WIFI_SETTINGS));
             return true;
         });
-        launcherSettingsButton = cfg.launcherSettingsButton;
+        launcherSettingsButton = cfg.launcherSettingsButton && !cfg.settingsButtonPanel;
+        settingsButtonPanel = cfg.settingsButtonPanel;
         if (launcherSettingsButton) {
             ((TextView) btnSettings).setText(R.string.launcher_settings);
             ((TextView) btnSettings).setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_home_settings_pill, 0, 0, 0);
         }
         btnSettings.setOnClickListener(v -> {
-            if (launcherSettingsButton) startActivityForResult(
+            if (settingsButtonPanel) open(new Intent(this, QuickSettingsActivity.class));
+            else if (launcherSettingsButton) startActivityForResult(
                     new Intent(this, LauncherSettingsActivity.class), LAUNCHER_SETTINGS_REQUEST);
             else open(systemIntent(Settings.ACTION_SETTINGS));
         });
@@ -3021,6 +3023,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     /** show_inputs_pill as configured: top_menu clears showInputsPill, so its Inputs row reads this. */
     private boolean showInputsMenuRow = true;
     private boolean launcherSettingsButton;
+    /** settings_button_panel: the header gear opens QuickSettingsActivity (fork of Sébastien's Shield). */
+    private boolean settingsButtonPanel;
     /** icon_only_buttons without wifi_label_width: the Wi-Fi pill shows no network name. */
     private boolean wifiIconOnly;
     /** config.xml wifi_status_color: the Wi-Fi icon's green while online and its usual pill colours; null while off. */

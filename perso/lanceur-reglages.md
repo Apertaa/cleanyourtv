@@ -38,6 +38,7 @@ Les **paramètres du lanceur** eux-mêmes :
 | Horloge | Système, 12 h ou 24 h |
 | Fond d'écran | une image du thème, Aucun, ou Celui du thème |
 | Animations / Effets avancés | marche ou arrêt |
+| Voile d'assombrissement, Délai avant le voile, Opacité du voile | **Ajouté dans ce fork** : marche ou arrêt ; 5 s à 30 min par pas de 5 s (Gauche/Droite) ; 50 à 100 % par pas de 5 % (activé, 1 min, 95 %) |
 | Ouvrir au démarrage | seulement avec `open_on_start_choice` |
 | Suivre le thème | efface tous les choix faits ici ; repousser un thème le fait aussi |
 | Choisir l'accueil par défaut / Paramètres système | |
@@ -77,6 +78,8 @@ Ces choix passent avant le thème, jusqu'à « Suivre le thème » ou au prochai
 | `wifi_status_color`, `wifi_status_warnings` | Icône Wi-Fi verte en ligne, orange sans Internet, rouge hors ligne ★ |
 | `top_menu` | Entrées, Wi-Fi et Paramètres réunis dans une seule roue centrée |
 | `launcher_settings_button` | La roue ouvre les réglages du lanceur plutôt que ceux de la Shield |
+| `settings_button_panel` | **Ajouté dans ce fork** : la roue ouvre le panneau rapide (Paramètres, Affichage, Réseau, Applis, réglages du lanceur) ★ (activé) |
+| `dimmer_enabled`, `dimmer_delay_seconds`, `dimmer_opacity` | **Ajoutés dans ce fork**, `config.xml` seulement : valeurs de départ du voile (activé, 60 s, 95 %) ; la TV garde ensuite ses propres choix |
 | `top_bar_apps` | Des applis en petits boutons ronds dans la barre du haut ★ |
 | `reorder_button` | Un bouton « Réorganiser » dans la barre du haut |
 | `show_stats` | Une ligne sous l'heure : processeur, mémoire libre, stockage libre |

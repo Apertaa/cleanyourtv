@@ -158,4 +158,8 @@
     <string name="clock_format_system">System</string>
     <string name="clock_format_12">12-hour</string>
     <string name="clock_format_24">24-hour</string>
+    <string name="dimmer_state">Screen dimming: %1$s</string>
+    <string name="dimmer_delay_state">Dim after: %1$s</string>
+    <string name="dimmer_opacity_state">Dimming: %1$s</string>
+    <string name="dimmer_hint">A black veil covers the screen after this long without a key, except while a video plays; music is dimmed too. The first key lifts it and still acts. Left and Right change the delay and the dimming.</string>
 </resources>

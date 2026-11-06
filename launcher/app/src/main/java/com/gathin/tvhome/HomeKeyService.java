@@ -92,6 +92,8 @@ public class HomeKeyService extends AccessibilityService {
     private boolean steppingOut;
     /** The bound helper, so the opt-in broadcast can arm it without waiting for a new connection. */
     private static HomeKeyService running;
+    /** Fork (Sébastien's Shield): the idle veil, in place of the screensaver. Null until the config is read. */
+    private Dimmer dimmer;
 
     @Override
     protected void onServiceConnected() {
@@ -150,6 +152,7 @@ public class HomeKeyService extends AccessibilityService {
         }
         if (gamepads != null) gamepads.stop();
         if (consumeVolumeKeys) VolumeKeys.stop();
+        stopDimmer();
         super.onDestroy();
     }
 
@@ -236,6 +239,13 @@ public class HomeKeyService extends AccessibilityService {
             gamepads = new GamepadPassthrough(this);
             gamepads.start();
         }
+        if (dimmer == null) dimmer = new Dimmer(this);
+    }
+
+    private void stopDimmer() {
+        if (dimmer == null) return;
+        dimmer.stop();
+        dimmer = null;
     }
 
     /** A tap's target: the "front:" entry while the button's own app is already in front, else the usual one. */
@@ -254,6 +264,8 @@ public class HomeKeyService extends AccessibilityService {
 
     @Override
     protected boolean onKeyEvent(KeyEvent event) {
+        // The veil lifts on any key, and the key still goes on to do its job.
+        if (dimmer != null) dimmer.onKey(event);
         // power_on_home: the first key after power-on hands the TV to the user (power and wake keys don't count).
         if (powerOnUntil != 0 && event.getAction() == KeyEvent.ACTION_DOWN
                 && event.getKeyCode() != KeyEvent.KEYCODE_POWER && event.getKeyCode() != KeyEvent.KEYCODE_WAKEUP) {
@@ -296,6 +308,7 @@ public class HomeKeyService extends AccessibilityService {
     @Override
     public boolean onUnbind(Intent intent) {
         RemoteKeys.release(this);
+        stopDimmer();
         if (repairRecord && !steppingOut) ServiceRepair.disconnected(this, getClass());
         return super.onUnbind(intent);
     }

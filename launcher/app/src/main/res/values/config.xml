@@ -296,6 +296,17 @@
     <!-- A direct Launcher settings action instead of TV Settings in the header (or top_menu).
          Off by default; a theme can set "launcher_settings_button": true. -->
     <bool name="launcher_settings_button">false</bool>
+    <!-- Fork (Shield de Sébastien) : the header gear opens the quick settings panel (TV settings, Display, Network,
+         Apps, Launcher settings) instead of the TV's Settings, keeping the gear icon; wins over launcher_settings_button.
+         Hold OK on it keeps the launcher menu. Off by default; a theme can set "settings_button_panel": true. -->
+    <bool name="settings_button_panel">false</bool>
+    <!-- Fork (Shield de Sébastien): the idle veil (Dimmer, drawn by HomeKeyService, so it needs home_key_service).
+         After dimmer_delay_seconds without a key, a black veil at dimmer_opacity % covers the screen, except while a
+         video plays (music is veiled); the first key lifts it and still acts. Launcher settings change all three on
+         the TV, in their own preferences that a theme push keeps. -->
+    <bool name="dimmer_enabled">true</bool>
+    <integer name="dimmer_delay_seconds">60</integer>
+    <integer name="dimmer_opacity">95</integer>
     <!-- The dock band as light frosted glass, like the Inputs, Wi-Fi and Settings pills, so a sky or wallpaper shows
          through it. false (the default) keeps the solid near-black band, or the cinematic shelf's dark glass. Can
          also be set with "dock_glass": true in a theme's config.json. -->

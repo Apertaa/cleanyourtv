@@ -61,6 +61,11 @@ The launcher's own page has these rows, top to bottom:
   Follow theme, or push the theme again.
 - **Animations** on or off, and **Advanced effects** (tile lift, icon zoom and smooth ambient-colour
   transitions; they may use more memory) once animations are on.
+- **Screen dimming**, **Dim after** and **Dimming**, in the fork `Apertaa/cleanyourtv` only and while
+  `HomeKeyService` runs: after that long without a key (5 s to 30 min, Left and Right in 5-second steps), a
+  black veil at that opacity (50% to 100%, Left and Right in 5% steps) covers whatever is on screen, except
+  while a video plays; music is veiled too. The first key lifts it and still acts, so Play resumes at once.
+  These three are kept through Follow theme and a theme push (`dimmer_*` in `config.xml`).
 - **Open on start**, only with `open_on_start_choice`: Off, or an app that opens instead of Home the first
   time Home comes up after the TV starts. Once per boot, so Home and Back still reach the launcher.
 - **Follow theme (reset on-TV choices)**, which clears every choice above. Pushing or resetting a theme

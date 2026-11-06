@@ -14,7 +14,7 @@ Réponses données vers 1 h 30, après l'essai de dock-glass, de glass et de cin
 | Sélection | dalle de verre, liseré à la couleur de l'appli | `glass_style` glass, `app_glow` |
 | Noms | le grand nom au-dessus du dock seulement | `dock_title` |
 | En haut à gauche | heure, date, ligne de stats ; ni salutation ni prénom | `show_greeting` false, `show_stats` |
-| En haut à droite | la roue ouvre les réglages du lanceur | `launcher_settings_button`, `icon_only_buttons` |
+| En haut à droite | une roue crantée qui ouvre le panneau rapide (Paramètres, Affichage, Réseau, Applis, réglages du lanceur) | `settings_button_panel` (code du fork), `icon_only_buttons` |
 | Bibliothèque d'applis | oui, bouton rond en haut | `app_library`, `library_button`, `show_library_pill` false |
 | Mouvement | ressort et effets avancés | `focus_overshoot`, `advanced_effects` |
 | Démarrage | l'accueil | rien |
@@ -26,11 +26,12 @@ Réponses données vers 1 h 30, après l'essai de dock-glass, de glass et de cin
 
 Officiels, à lire avant d'installer : **Météo** (ville réglée sur la Shield seulement, jamais dans le fork),
 **Minuteur de veille**, **Inspecteur TV**, **Statistiques** (Capacity Stats), **Accès à distance**, **Statut AirPlay**.
-Aucun add-on de la communauté.
+Aucun add-on de la communauté. Installés le 06/11 vers 1 h 35, sauf Statut AirPlay (pas de récepteur AirPlay sur la
+Shield) ; vers 1 h 40, Sébastien n'a gardé que le **Minuteur de veille**.
 
-## À construire : le voile d'assombrissement
+## Le voile d'assombrissement (construit le 06/11)
 
-Il remplace l'écran de veille Aerial Views, sur le modèle de celui de SmartTube.
+Réglé dans Paramètres du lanceur ; fonctionnement et limites dans `README.md`. Il remplace l'écran de veille Aerial Views, sur le modèle de celui de SmartTube.
 
 - Après un délai sans appui, réglable par pas de 5 s, un voile noir couvre l'écran à 95 % (opacité réglable).
 - Il agit partout tant qu'aucune vidéo ne joue : l'accueil, Spotify en musique, une vidéo en pause dans Nuvio.

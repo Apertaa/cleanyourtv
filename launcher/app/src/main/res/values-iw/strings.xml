@@ -152,4 +152,8 @@
     <string name="clock_format_system">מערכת</string>
     <string name="clock_format_12">12 שעות</string>
     <string name="clock_format_24">24 שעות</string>
+    <string name="dimmer_state">עמעום מסך: %1$s</string>
+    <string name="dimmer_delay_state">עמעום אחרי: %1$s</string>
+    <string name="dimmer_opacity_state">עוצמת העמעום: %1$s</string>
+    <string name="dimmer_hint">מסך שחור שקוף מכסה את המסך אחרי זמן זה ללא לחיצה, חוץ מבזמן ניגון וידאו; גם מוזיקה מעומעמת. הלחיצה הראשונה מסירה אותו ועדיין פועלת. שמאלה וימינה משנים את ההשהיה ואת העמעום.</string>
 </resources>

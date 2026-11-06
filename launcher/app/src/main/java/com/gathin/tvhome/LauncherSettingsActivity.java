@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.LinearLayout;
@@ -39,6 +40,9 @@ public final class LauncherSettingsActivity extends Activity {
     private TextView advancedChoice;
     private TextView followThemeChoice;
     private TextView openOnStartChoice;
+    private TextView dimmerChoice;
+    private TextView dimmerDelayChoice;
+    private TextView dimmerOpacityChoice;
     private int columns;
     private int rowsBelowDock;
     private int dockOpacity;
@@ -147,6 +151,16 @@ public final class LauncherSettingsActivity extends Activity {
                         .show();
             }
         });
+        // Fork (Sébastien's Shield): the idle veil's settings, in Dimmer's own preferences.
+        dimmerChoice = findViewById(R.id.dimmerChoice);
+        dimmerChoice.setOnClickListener(v -> {
+            Dimmer.prefs(this).edit().putBoolean(Dimmer.KEY_ENABLED, !Dimmer.enabled(this)).apply();
+            refresh();
+        });
+        dimmerDelayChoice = findViewById(R.id.dimmerDelayChoice);
+        dimmerDelayChoice.setOnKeyListener((v, keyCode, event) -> stepDimmer(keyCode, event, Dimmer.KEY_DELAY));
+        dimmerOpacityChoice = findViewById(R.id.dimmerOpacityChoice);
+        dimmerOpacityChoice.setOnKeyListener((v, keyCode, event) -> stepDimmer(keyCode, event, Dimmer.KEY_OPACITY));
         openOnStartChoice = findViewById(R.id.openOnStartChoice);
         if (config.openOnStartChoice) {
             openOnStartChoice.setVisibility(View.VISIBLE);
@@ -292,7 +306,28 @@ public final class LauncherSettingsActivity extends Activity {
         refresh();
     }
 
+    /** Left and Right on a veil row: the delay in 5-second steps (30 s once held), the opacity in 5 % steps. */
+    private boolean stepDimmer(int keyCode, KeyEvent event, String key) {
+        int direction = keyCode == KeyEvent.KEYCODE_DPAD_RIGHT ? 1 : keyCode == KeyEvent.KEYCODE_DPAD_LEFT ? -1 : 0;
+        if (direction == 0) return false;
+        if (event.getAction() != KeyEvent.ACTION_DOWN) return true;
+        int value = Dimmer.KEY_DELAY.equals(key)
+                ? Dimmer.clampDelay(Dimmer.delaySeconds(this) + direction * (event.getRepeatCount() > 10 ? 30 : Dimmer.DELAY_STEP))
+                : Dimmer.clampOpacity(Dimmer.opacity(this) + direction * Dimmer.OPACITY_STEP);
+        Dimmer.prefs(this).edit().putInt(key, value).apply();
+        refresh();
+        return true;
+    }
+
     private void refresh() {
+        boolean dimmer = Dimmer.enabled(this);
+        dimmerChoice.setText(getString(R.string.dimmer_state, getString(dimmer ? R.string.on : R.string.off)));
+        dimmerDelayChoice.setText(getString(R.string.dimmer_delay_state, "‹ " + Dimmer.formatDelay(Dimmer.delaySeconds(this)) + " ›"));
+        dimmerOpacityChoice.setText(getString(R.string.dimmer_opacity_state, "‹ " + Dimmer.opacity(this) + " % ›"));
+        for (TextView row : new TextView[] {dimmerDelayChoice, dimmerOpacityChoice}) {
+            row.setEnabled(dimmer);
+            row.setAlpha(dimmer ? 1f : 0.5f);
+        }
         for (int i = 0; i < columnChoices.length; i++) {
             columnChoices[i].setSelected(columns == i + 4);
         }

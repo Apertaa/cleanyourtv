@@ -26,8 +26,8 @@
   "show_greeting": false,
   "show_stats": true,
   "icon_only_buttons": true,
-  "launcher_settings_button": true,
   "app_library": true,
   "library_button": true,
-  "show_library_pill": false
+  "show_library_pill": false,
+  "settings_button_panel": true
 }
