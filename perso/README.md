@@ -7,7 +7,8 @@ de Sébastien. Le reste du dépôt suit le projet d'origine (`upstream` = `Gathi
 
 - **Accueil : le lanceur CleanYourTV v3.3** (`com.gathin.tvhome`), dock YouTube+, Nuvio GitHub `com.nuvio.tv`,
   Canal+, Spotify (`launcher/.../values/config.xml`). Depuis le 06/11 il porte le thème **glass**
-  (essayé après dock-glass) : copie dans `themes/glass-shield/`, seul le dock change (ses 4 applis). Poussé par
+  (essayé après dock-glass et cinematic), ajusté selon le questionnaire de Sébastien : `themes/glass-shield/`, choix
+  détaillés dans `accueil-cible.md`. Poussé par
   `tools/theme.sh perso/themes/glass-shield` ; retour au réglage d'origine : `tools/theme.sh --reset`. Chantier de l'accueil : `STATUS.md` ; tous les réglages du lanceur : `lanceur-reglages.md`. Ce dépôt sert aussi pour l'**allègement**, plutôt
   qu'ATV Optimizer. Audit préalable : `../../pilotage/kb/mesures/shield-audit-2026-11-05.md`.
 - Historique : lanceur CleanYourTV le 05/11 de 15 h à 20 h, Projectivy du 05/11 au soir au 06/11 (section
@@ -18,9 +19,10 @@ de Sébastien. Le reste du dépôt suit le projet d'origine (`upstream` = `Gathi
   `STOCK_LAUNCHER` quand l'Accueil est un lanceur qu'il ne connaît pas). **Toujours `HOME_KEY_SERVICE=1`** :
   Android coupe le service des touches à chaque réinstallation, et le bouton NETFLIX redeviendrait « Netflix ».
 - Depuis le 06/11 vers 0 h 50, le lanceur est compilé avec, dans `config.xml` : le ciel qui suit l'heure
-  (`sky_intensity` 60) et la position du centre de Rennes (choisie plutôt que la commune exacte, le fork étant
+  (`sky_intensity` 60), les fonds décodés en couleurs 32 bits (`wallpaper_true_color`, moins de bandes dans les
+  dégradés sombres ; ajouté vers 1 h) et la position du centre de Rennes (choisie plutôt que la commune exacte, le fork étant
   public ; le soleil y diffère de moins d'une minute), et le bouton **NETFLIX → Nuvio** (`app_keys`
-  `KEYCODE_BUTTON_12:com.nuvio.tv`). Le service des touches (`HomeKeyService`) est activé et lié ; essai au vrai
+  `KEYCODE_BUTTON_12:com.nuvio.tv` ; appui long → YouTube+, `hold:KEYCODE_BUTTON_12:org.smarttube.stable`). Le service des touches (`HomeKeyService`) est activé et lié ; essai au vrai
   bouton par Sébastien : Nuvio s'ouvre. Ces réglages sont dans `config.xml` et pas dans le thème, pour qu'une
   réinstallation garde les choix faits sur la TV (un envoi de thème les efface).
 - Boutons de la télécommande (relevés le 06/11, `getevent`, fichier `Vendor_0955_Product_7217.kl`) : Menu `MENU`,

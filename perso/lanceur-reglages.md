@@ -204,3 +204,18 @@ sans toucher au lanceur. Il y en a environ 33. Celles qui pourraient te servir :
 - **Écran de veille photo**, **Horloges du monde**, **Maison** (Home Assistant).
 
 Liste complète, avec les permissions de chacune : `addons/README.md`.
+
+Le site [cleanyour.tv/addons](https://cleanyour.tv/addons) en compte 52 (relevé le 06/11/2026). Ce sont les 33 du
+dossier `addons/`, plus 19 « de la communauté » : ceux-là vivent dans le dépôt de leur auteur, sont seulement
+cités dans `SHOWCASE.md` et ne sont pas relus comme ceux du dépôt. Le site conseille de lire leur README avant
+d'installer. Ceux qui pourraient te servir :
+
+- **Picture Window** : un écran de veille de photos 4K de Wikimedia Commons, renouvelées chaque mois, avec un fork du
+  lanceur qui montre la même photo sur l'accueil. Ce serait un code de plus à reprendre dans ton fork.
+- **Webmote** : une télécommande dans le navigateur du téléphone.
+- **Weather Clock** : la météo sur l'horloge du lanceur.
+- **Departures** : un panneau à palettes façon gare.
+- **AuroraTv-LiveFlow** : un fond animé façon PS5.
+
+Les 118 « settings » du site sont les clés de thème du § 2 ; ce fichier les regroupe et laisse de côté le détail de
+celles qui ne servent qu'aux TV.
